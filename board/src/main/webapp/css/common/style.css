@@ -1,0 +1,746 @@
+body {
+    margin: 0;
+    height: 809px;
+    margin: 0vh;
+    padding: 0vh;
+    cursor: none;
+}
+
+html {
+    height: 809px;
+    margin: 0vh;
+    padding: 0vh;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    background-size: cover;
+    opacity: 1;
+    z-index: -2;
+    margin: 0vh;
+    padding: 0vh;
+}
+
+#welcome {
+    margin-top: 30px;
+    font-size: 80px;
+    color: white;
+    text-align: center;
+    animation-duration: 1s;
+    animation-name: slidein1;
+    display: block;
+}
+
+
+#jaeyeonKim {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+    animation-duration: 5s;
+    animation-name: slidein4;
+    margin-top: 100px;
+}
+
+#pressButton {
+    margin-top: 30px;
+    font-size: 80px;
+    color: white;
+    text-align: center;
+    padding-bottom: 50px;
+    animation-duration: 2s;
+    animation-name: slidein2;
+}
+
+
+@keyframes slidein4 {
+    0% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 0;
+    }
+  
+    100% {
+        opacity: 1;
+    }
+  }
+
+
+.box {
+    border: 5px solid white;
+    width: 250px;
+    height: 250px;
+    box-sizing: border-box;
+    transform: rotate(45deg);
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 50px;
+    margin-right: 40px;
+}
+
+#one {
+    animation-duration: 1s;
+    animation-name: slidein1;
+}
+
+@keyframes slidein1 {
+    0% {
+        opacity: 0;
+    }
+  
+    100% {
+        opacity: 1;
+    }
+  }
+
+  #two {
+    animation-duration: 2s;
+    animation-name: slidein2;
+}
+
+@keyframes slidein2 {
+    0% {
+        opacity: 0;
+    }
+   
+    50% {
+        opacity: 0;
+    }
+  
+    100% {
+        opacity: 1;
+    }
+  }
+  #three {
+      animation-duration: 3s;
+      animation-name: slidein3;
+  }
+  
+  @keyframes slidein3 {
+      0% {
+          opacity: 0;
+      }
+     
+      66% {
+          opacity: 0;
+      }
+    
+      100% {
+          opacity: 1;
+      }
+    }
+.container {
+    width: 150vh;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+.photo1, .photo2, .photo3 {
+    width: inherit;
+    height: inherit;
+    background-size: cover;
+    background-image: url(photo-01.jpg);
+    background-position: center center;
+    cursor: none;
+    transform: rotate(-45deg) scale(0.5);
+    transition: 0.5s;
+}
+
+.photo1:hover, .photo2:hover, .photo3:hover {
+    transform: rotate(-45deg) scale(0.7);
+    opacity: 0.6;
+    cursor: none;
+}
+
+.box:nth-child(1) .photo1{
+    background-image: url(photo-01.jpg);
+}
+
+.box:nth-child(2) .photo2{
+    background-image: url(photo-02.jpg);
+}
+.box:nth-child(3) .photo3{
+    background-image: url(photo-03.jpg);
+}
+
+.wave {
+    color: white;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    font-size: 50px;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    animation-name: wifi;
+    animation-duration: 6s;
+    cursor: none;
+}
+
+@keyframes wifi {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.wave::before,
+.wave::after {
+    content: '';
+    position: absolute;
+    border: 5px solid white;
+    width: inherit;
+    height: inherit;
+    left: 0;
+    box-sizing: border-box;
+    top: 0;
+    border-radius: 50%;
+    opacity: 0;
+    animation: ani9 1s linear infinite;
+}
+@keyframes ani9 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.8);
+    }
+}
+
+#profile, #study, #goal {
+    position: absolute;
+    color: white;
+    margin-top: -50px;
+    margin-left: 55px;
+    font-size: 50px;
+    text-align: center;
+    display: none;
+}
+
+#profile {
+    margin-left: 35px;
+}
+.wave:after {
+    animation-delay: 0.5s;
+}
+
+td:hover {
+	background-color: white;
+	color : black;
+}
+
+
+h2 {
+
+    font-size: 80px;
+    letter-spacing: 10px;
+    color: white;
+    position: relative;
+    margin-left: 200px;
+    animation: shadow 1.5s linear;
+}
+
+h2::after {
+    position: absolute;
+    color: #383838;
+    z-index: -1;
+    content: attr(data-title);
+    left: 2.5%;
+    top: -15%;
+    transform: skewX(60deg) translate(-130px, 30px) scaleY(0.6);
+    animation: shadow 1.5s linear;
+}
+@keyframes shadow {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.profileContainer {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    color: white;
+    letter-spacing: 2px;
+    line-height: 50px;
+    font-size: 30px;
+    display: block;
+}
+
+.name, .school, .hobby {
+    animation: ani 4s linear;
+}
+@keyframes ani {
+    0% {
+        opacity: 0;
+        margin-left : 100px;
+    }
+    50% {
+        opacity: 0;
+        margin-left : 100px;
+    }
+    100% {
+        opacity: 1;
+        margin-left: 0px;
+    }
+}
+
+.birth, .live {
+    animation: ani2 3s linear;
+}
+@keyframes ani2 {
+    0% {
+        opacity: 0;
+        margin-right : 100px;
+    }
+    50% {
+        opacity: 0;
+        margin-right : 100px;
+    }
+    100% {
+        opacity: 1;
+        margin-right: 0px;
+    }
+}
+
+#face {
+    position: absolute;
+    width: 270px;
+    height: 410px;
+    top: 50%;
+    left:50%;
+    transform: translate(-300%, -50%);
+    animation: ani3 5s linear;
+}
+@keyframes ani3 {
+    0% {
+        opacity: 0;
+    }
+    66% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.backbtn {
+    margin: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 2px #727272 solid;
+    text-emphasis: none;
+    background: none;
+    position: absolute;
+    cursor: none;
+    top: 10%;
+    left: 90%;
+    transform: translate(50%, -50%);
+    transition: 0.5s
+}
+
+.backbtn:hover {
+    background: #727272;
+    opacity: 0.7;
+}
+
+#login1 {
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+}
+
+#game {
+    height: 200px;
+    width: 400px;
+}
+
+#login2 {
+    height: 200px;
+    width: 200px;
+    margin-right: 50px;
+
+}
+
+#notice {
+    height: 200px;
+    width: 500px;
+}
+#image {
+    width: 500px;
+    height: 333px;
+}
+
+.studybackbtn {
+    margin: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 2px #727272 solid;
+    text-emphasis: none;
+    background: none;
+    position: absolute;
+    cursor: none;
+    top: 10%;
+    left: 90%;
+    transform: translate(50%, -50%);
+    transition: 0.5s
+}
+
+
+.studybackbtn:hover {
+    background: #727272;
+    opacity: 0.7;
+}
+
+.language {
+    animation: anis 3s linear;
+}
+@keyframes anis {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.project1 {
+    animation: anis2 6s linear;
+}
+@keyframes anis2 {
+    0% {
+        opacity: 0;
+        margin-right : 150px;
+        display: none;
+    }
+    50% {
+        opacity: 0;
+        display: none;
+        margin-right : 150px;
+    }
+    100% {
+        opacity: 1;
+        margin-right: 0px;
+        display: block;
+    }
+}
+
+.project2 {
+    animation: anis3 6s linear;
+}
+
+@keyframes anis3 {
+    0% {
+        opacity: 0;
+        margin-left : 150px;
+        display: none;
+    }
+    50% {
+        opacity: 0;
+        display: none;
+        margin-left : 150px;
+    }
+    100% {
+        opacity: 1;
+        margin-left: 0px;
+        display: block;
+    }
+}
+
+.inner h4 {
+	color:white;
+}
+
+#cursor {
+    position: fixed;
+    border-top: 5px solid #383838;
+    border-right: 5px solid #383838;
+    width: 15px;
+    height: 15px;
+    transform: rotate(-45deg);
+    z-index: 1000;
+}
+
+/** VARIABLES
+===================================*/
+/** RESET AND LAYOUT
+===================================*/
+.bx-wrapper {
+    position: relative;
+    margin-bottom: 60px;
+    padding: 0;
+    margin: 0;
+    *zoom: 1;
+    -ms-touch-action: pan-y;
+    width: 500px;
+    touch-action: pan-y;
+}
+.bx-wrapper img {
+/*max-width: 100%;*/
+/*�씠誘몄� �겕湲� �꽕�젙*/
+width:500px;
+height:300px;
+display: block;
+}
+.bxslider {
+margin: 0;
+padding: 0;
+}
+ul.bxslider {
+list-style: none;
+}
+.bx-viewport {
+/*fix other elements on the page moving (on Chrome)*/
+transform: translatez(0);
+}
+/** THEME
+===================================*/
+.bx-wrapper {
+    /*�씠誘몄�諛뽰쓽 猿띾뜲湲� �겕湲� �꽕�젙*/
+    width:500px;
+    height:300px;
+-moz-box-shadow: 0 0 5px #ccc;
+-webkit-box-shadow: 0 0 5px #ccc;
+box-shadow: 0 0 5px #ccc;
+border: 5px solid #fff;
+background: #fff;
+}
+
+.bx-wrapper .bx-pager,
+.bx-wrapper .bx-controls-auto {
+position: absolute;
+bottom: -30px;
+width: 100%;
+}
+/* LOADER */
+.bx-wrapper .bx-loading {
+min-height: 50px;
+background: url('images/bx_loader.gif') center center no-repeat #ffffff;
+height: 100%;
+width: 100%;
+position: absolute;
+top: 0;
+left: 0;
+z-index:900;
+}
+/* PAGER */
+.bx-wrapper .bx-pager {
+text-align: center;
+font-size: .85em;
+font-family: Arial;
+font-weight: bold;
+color: white;
+padding-top: 20px;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+background: #666;
+text-indent: -9999px;
+display: block;
+width: 10px;
+height: 10px;
+margin: 0 5px;
+outline: 0;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover,
+.bx-wrapper .bx-pager.bx-default-pager a.active,
+.bx-wrapper .bx-pager.bx-default-pager a:focus {
+background: white;
+}
+.bx-wrapper .bx-pager-item,
+.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+display: inline-block;
+vertical-align: bottom;
+*zoom: 1;
+*display: inline;
+border: white 1px solid;
+}
+.bx-wrapper .bx-pager-item {
+font-size: 0;
+line-height: 0;
+}
+/* DIRECTION CONTROLS (NEXT / PREV) */
+.bx-wrapper .bx-prev {
+left: 10px;
+cursor: none;
+background: url('images/controls.png') no-repeat 0 -32px;
+}
+.bx-wrapper .bx-prev:hover,
+.bx-wrapper .bx-prev:focus {
+background-position: 0 0;
+z-index: 100;
+}
+.bx-wrapper .bx-next {
+right: 10px;
+cursor: none;
+background: url('images/controls.png') no-repeat -43px -32px;
+}
+.bx-wrapper .bx-next:hover,
+.bx-wrapper .bx-next:focus {
+background-position: -43px 0;
+z-index: 100;
+}
+.bx-wrapper .bx-controls-direction a {
+position: absolute;
+top: 50%;
+margin-top: -16px;
+outline: 0;
+width: 32px;
+height: 32px;
+text-indent: -9999px;
+z-index: 99;
+}
+.bx-wrapper .bx-controls-direction a.disabled {
+display: none;
+}
+/* AUTO CONTROLS (START / STOP) */
+.bx-wrapper .bx-controls-auto {
+text-align: center;
+}
+.bx-wrapper .bx-controls-auto .bx-start {
+display: block;
+text-indent: -9999px;
+width: 10px;
+height: 11px;
+outline: 0;
+background: url('images/controls.png') -86px -11px no-repeat;
+margin: 0 3px;
+}
+
+.bx-wrapper .bx-controls-auto .bx-stop {
+display: block;
+text-indent: -9999px;
+width: 9px;
+height: 11px;
+outline: 0;
+background: url('images/controls.png') -86px -44px no-repeat;
+margin: 0 3px;
+}
+/* PAGER WITH AUTO-CONTROLS HYBRID LAYOUT */
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager {
+text-align: left;
+width: 80%;
+}
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto {
+right: 0;
+width: 35px;
+}
+/* IMAGE CAPTIONS */
+.bx-wrapper .bx-caption {
+position: absolute;
+bottom: 0;
+left: 0;
+background: #666;
+background: rgba(80, 80, 80, 0.75);
+width: 100%;
+}
+.bx-wrapper .bx-caption span {
+color: #fff;
+font-family: Arial;
+display: block;
+font-size: .85em;
+padding: 10px;
+}
+
+
+.project {
+    animation: sli11 6s linear;
+}
+
+@keyframes sli11 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.home__slider {
+    display: inline-block;
+    animation: anis22 6s linear
+}
+@keyframes anis22 {
+    0% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.future {
+    animation: sli12 3s linear;
+}
+
+@keyframes sli12 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.plan {
+    animation: sli13 6s linear;
+}
+
+@keyframes sli13 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

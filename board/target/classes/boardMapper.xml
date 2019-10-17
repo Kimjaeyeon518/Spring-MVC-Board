@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.board.boardMapper">
+
+	<select id="getBoardCnt" parameterType="com.spring.board.form.BoardForm" resultType="int">
+	
+		SELECT COUNT(*)
+		FROM BOARD.TB_BOARD
+	
+	</select>
+	
+	<select id="getDataCnt" parameterType="com.spring.board.form.DataForm" resultType="int">
+	
+		SELECT COUNT(*)
+		FROM BOARD.DATA
+	
+	</select>
+	
+	
+	<select id="getBoardList" parameterType="com.spring.board.form.BoardForm" resultType="com.spring.board.dto.BoardDto">
+	
+		SELECT *
+		FROM ( 
+				SELECT BOARD_SEQ 
+					 , BOARD_RE_REF 
+					 , BOARD_RE_LEV 
+					 , BOARD_RE_SEQ 
+					 , BOARD_WRITER 
+					 , BOARD_SUBJECT 
+					 , BOARD_CONTENT 
+					 , BOARD_HITS
+					 , DEL_YN 
+					 , INS_USER_ID
+					 , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+					 , UPD_USER_ID
+					 , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE  
+					 , SEC_YN
+			   FROM BOARD.TB_BOARD
+		       ORDER BY BOARD_RE_REF DESC, BOARD_RE_SEQ ASC
+			  ) T1
+		LIMIT #{limit} OFFSET #{offset}
+	
+	</select>
+	
+	<select id="getDataList" parameterType="com.spring.board.form.DataForm" resultType="com.spring.board.dto.DataDto">
+	
+		SELECT *
+		FROM ( 
+				SELECT DATA_SEQ
+					 , DATA_SUBJECT 
+					 , DATA_CONTENT 
+					 , DATA_HITS
+					 , DEL_YN 
+					 , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+					 , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE  
+			   FROM DATA
+		       ORDER BY DATA_SEQ DESC
+			  ) T1
+		LIMIT #{limit} OFFSET #{offset}
+	
+	</select>
+	
+	<delete id="updateBoardHits" parameterType="com.spring.board.form.BoardForm">
+	
+		UPDATE BOARD.TB_BOARD 
+		   SET BOARD_HITS = BOARD_HITS + 1		     
+		     , UPD_USER_ID = 'NONMEMBER'
+		     , UPD_DATE = NOW()
+ 		WHERE BOARD_SEQ = #{board_seq}
+	
+	</delete>
+	
+		<delete id="updateDataHits" parameterType="com.spring.board.form.DataForm">
+	
+		UPDATE BOARD.DATA
+		   SET DATA_HITS = DATA_HITS + 1	
+		     , UPD_DATE = NOW()
+ 		WHERE DATA_SEQ = #{data_seq}
+	
+	</delete>
+	
+	<select id="getBoardDetail" parameterType="com.spring.board.form.BoardForm" resultType="com.spring.board.dto.BoardDto">
+	
+		SELECT T1.*
+		FROM (
+				SELECT BOARD_SEQ 
+					 , BOARD_RE_REF 
+					 , BOARD_RE_LEV 
+					 , BOARD_RE_SEQ 
+					 , BOARD_WRITER 
+					 , BOARD_SUBJECT 
+					 , BOARD_CONTENT 
+					 , BOARD_HITS
+					 , DEL_YN 
+					 , INS_USER_ID
+					 , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+					 , UPD_USER_ID
+					 , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE  
+				FROM BOARD.TB_BOARD
+				WHERE BOARD_SEQ = #{board_seq}		
+		      ) T1		
+	
+	</select>
+	
+	<select id="getDataDetail" parameterType="com.spring.board.form.DataForm" resultType="com.spring.board.dto.DataDto">
+	
+		SELECT T1.*
+		FROM (
+				SELECT DATA_SEQ 
+					   DATA_SUBJECT 
+					 , DATA_CONTENT 
+					 , DATA_HITS
+					 , DEL_YN 
+					 , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+					 , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE  
+				FROM BOARD.DATA
+				WHERE DATA_SEQ = #{data_seq}		
+		      ) T1		
+	
+	</select>
+	
+	<select id="getBoardPw" parameterType="com.spring.board.form.BoardForm" resultType="com.spring.board.dto.BoardDto">
+	
+		SELECT BOARD_PW
+				FROM BOARD.TB_BOARD
+				WHERE BOARD_SEQ = #{board_seq}		
+	
+	</select>
+	<select id="getDataPw" parameterType="com.spring.board.form.DataForm" resultType="com.spring.board.dto.DataDto">
+	
+		SELECT DATA_PW
+				FROM BOARD.DATA
+				WHERE DATA_SEQ = #{data_seq}		
+	
+	</select>
+		
+	<select id="getDataFileList" parameterType="com.spring.board.form.DataFileForm" resultType="com.spring.board.dto.DataFileDto">
+	
+		SELECT T1.*
+		FROM (
+				SELECT DATA_SEQ
+					 , FILE_NO
+					 , FILE_NAME_KEY
+					 , FILE_NAME
+					 , FILE_PATH
+					 , FILE_SIZE
+					 , REMARK
+					, CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+					, CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE
+				FROM DATA_FILE
+				WHERE DATA_SEQ = #{data_seq}
+				AND DEL_YN = 'N'
+		      ) T1		
+			
+	</select>
+	
+	<select id="getBoardReRef" parameterType="com.spring.board.form.BoardForm" resultType="int">
+	
+		SELECT IFNULL(MAX(BOARD_RE_REF), 0) + 1
+		FROM BOARD.TB_BOARD
+	
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.spring.board.form.BoardForm">
+		
+		<selectKey resultType="int" keyProperty="board_seq" order="AFTER">
+
+			SELECT LAST_INSERT_ID()
+
+		</selectKey>
+		
+		INSERT 
+		INTO BOARD.TB_BOARD 
+		(
+		  	  BOARD_RE_REF
+		  	, BOARD_RE_LEV
+		  	, BOARD_RE_SEQ
+		  	, BOARD_WRITER
+		  	, BOARD_SUBJECT
+		  	, BOARD_CONTENT
+		  	, INS_USER_ID
+		  	, INS_DATE
+		  	, UPD_USER_ID
+		  	, UPD_DATE
+		  	, BOARD_PW
+		  	, SEC_YN
+		) 
+		VALUES 
+		(
+			  #{board_re_ref}
+			, 0
+			, 0
+			, #{board_writer}
+			, #{board_subject}
+			, #{board_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+			, #{board_pw}
+			, #{sec_yn}
+		)
+			
+	</insert>
+	
+	<insert id="insertData" parameterType="com.spring.board.form.DataForm">
+		
+		<selectKey resultType="int" keyProperty="data_seq" order="AFTER">
+
+			SELECT LAST_INSERT_ID()
+
+		</selectKey>
+		
+		INSERT 
+		INTO BOARD.DATA
+		(
+		  	  DATA_SUBJECT
+		  	, DATA_CONTENT
+		  	, INS_DATE
+		  	, UPD_DATE
+		  	, DATA_PW
+		) 
+		VALUES 
+		(
+			  #{data_subject}
+			, #{data_content}
+			, NOW() 
+			, NOW() 
+			, #{data_pw}
+		)
+			
+	</insert>
+	
+	<insert id="insertDataFile" parameterType="com.spring.board.form.DataFileForm">
+	
+		<selectKey resultType="int" keyProperty="file_no" order="BEFORE">
+			
+			SELECT IFNULL(MAX(FILE_NO), 0) + 1 
+			FROM BOARD.data_file
+			WHERE DATA_SEQ = #{data_seq}
+			  
+		</selectKey>
+				
+		INSERT 
+		INTO DATA_FILE
+		(
+			  DATA_SEQ
+			, FILE_NO
+			, FILE_NAME_KEY
+			, FILE_NAME
+			, FILE_PATH
+			, FILE_SIZE
+			, DEL_YN 
+			, INS_DATE		
+			, UPD_DATE
+		)
+		VALUES
+		(
+			  #{data_seq}
+			, #{file_no}
+			, #{file_name_key}
+			, #{file_name}
+			, #{file_path}
+			, #{file_size}
+			, 'N'
+			, NOW() 
+			, NOW() 
+		)	
+		
+	</insert>
+	
+	<insert id="insertBoardFail" parameterType="com.spring.board.form.BoardForm">
+	
+		INSERT 
+		INTO BOARD.TB_BOARD 
+		(
+		  	  BOARD_RE_REF
+		  	, BOARD_RE_LEV
+		  	, BOARD_RE_SEQ
+		  	, BOARD_WRITER
+		  	, BOARD_SUBJECT
+		  	, BOARD_CONTENT
+		  	, INS_USER_ID
+		  	, INS_DATE
+		  	, UPD_USER_ID
+		  	, UPD_DATE
+		) 
+		VALUES 
+		(
+			  0
+			, 0
+			, 0
+			, #{board_writer}
+			, #{board_subject}
+			, #{board_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+		)
+	
+	</insert>
+	
+	<insert id="insertDataFail" parameterType="com.spring.board.form.DataForm">
+	
+		INSERT 
+		INTO BOARD.DATA
+		(
+		  	
+		  	  DATA_SUBJECT
+		  	, DATA_CONTENT
+		  	, INS_DATE
+		  	, UPD_DATE
+		) 
+		VALUES 
+		(
+			  #{data_subject}
+			, #{data_content}
+			, NOW() 
+			, NOW() 
+		)
+	
+	</insert>
+		
+	<delete id="deleteBoard" parameterType="com.spring.board.form.BoardForm">
+	
+		DELETE 
+		FROM BOARD.TB_BOARD 
+		WHERE BOARD_SEQ = #{board_seq}
+	
+	</delete>
+	
+	<delete id="deleteData" parameterType="com.spring.board.form.DataForm">
+	
+		DELETE 
+		FROM BOARD.DATA 
+		WHERE DATA_SEQ = #{data_seq}
+	
+	</delete>
+	
+	<delete id="updateBoard" parameterType="com.spring.board.form.BoardForm">
+	
+		UPDATE BOARD.TB_BOARD 
+		   SET BOARD_SUBJECT = #{board_subject}
+		     , BOARD_CONTENT = #{board_content}
+		     , UPD_USER_ID = 'NONMEMBER'
+		     , UPD_DATE = NOW()
+ 		WHERE BOARD_SEQ = #{board_seq}
+	
+	</delete>
+	
+	<delete id="updateData" parameterType="com.spring.board.form.DataForm">
+	
+		UPDATE BOARD.DATA
+		   SET DATA_SUBJECT = #{data_subject}
+		     , DATA_CONTENT = #{data_content}
+		     , UPD_DATE = NOW()
+ 		WHERE DATA_SEQ = #{data_seq}
+	
+	</delete>
+	
+	<delete id="updateDataFile" parameterType="com.spring.board.form.DataForm">
+	
+		
+				
+		UPDATE DATA_FILE
+		 SET  
+			, FILE_NO = #{file_no}
+			, FILE_NAME_KEY=#{file_name_key}
+			, FILE_NAME=#{file_name}
+			, FILE_PATH=#{file_path}
+			, FILE_SIZE=#{file_size}
+			, DEL_YN ='N'
+			, INS_DATE =	NOW() 	
+			, UPD_DATE = NOW() 
+		
+ 		WHERE DATA_SEQ = #{data_seq}
+		
+	</delete>
+	
+	<select id="getBoardReplyInfo" parameterType="com.spring.board.form.BoardForm" resultType="com.spring.board.dto.BoardDto">
+	
+		SELECT BOARD_SEQ
+			 , BOARD_RE_REF
+			 , BOARD_RE_LEV
+			 , BOARD_RE_SEQ
+	    FROM TB_BOARD
+	    WHERE BOARD_SEQ = #{board_parent_seq}
+	
+	</select>
+	
+	<delete id="updateBoardReSeq" parameterType="com.spring.board.form.BoardForm">
+	
+		UPDATE TB_BOARD
+		   SET BOARD_RE_SEQ = BOARD_RE_SEQ + 1
+		     , UPD_USER_ID = 'NONMEMBER'
+		     , UPD_DATE = NOW()
+		 WHERE BOARD_RE_REF = #{board_re_ref} 
+	       AND BOARD_RE_SEQ > #{board_re_seq}
+	
+	</delete>
+	
+	<insert id="insertBoardReply" parameterType="com.spring.board.form.BoardForm">
+	
+		INSERT 
+		INTO BOARD.TB_BOARD 
+		(
+		  	  BOARD_RE_REF
+		  	, BOARD_RE_LEV
+		  	, BOARD_RE_SEQ
+		  	, BOARD_WRITER
+		  	, BOARD_SUBJECT
+		  	, BOARD_CONTENT
+		  	, INS_USER_ID
+		  	, INS_DATE
+		  	, UPD_USER_ID
+		  	, UPD_DATE
+		  	, BOARD_PW
+		) 
+		VALUES 
+		(
+			  #{board_re_ref}
+			, #{board_re_lev} + 1
+			, #{board_re_seq} + 1
+			, #{board_writer}
+			, #{board_subject}
+			, #{board_content}
+			, 'NONMEMBER'
+			, NOW() 
+			, 'NONMEMBER'
+			, NOW() 
+			, #{board_pw}
+		)
+	
+	</insert>
+	
+	<select id="getLoginInfo" parameterType="com.spring.board.form.LoginForm" resultType="com.spring.board.dto.LoginDto">
+	
+		SELECT LOGIN_ID,
+				LOGIN_PW
+	    FROM BOARD.login
+	
+	</select>
+	
+	<select id="checkAdmin" parameterType="com.spring.board.form.AdminForm" resultType="com.spring.board.dto.AdminDto">
+	
+		SELECT ADMIN
+		
+	    FROM BOARD.admin
+	
+	</select>
+	
+	<delete id="rootAdmin" parameterType="com.spring.board.form.AdminForm">
+	
+		UPDATE ADMIN
+		   SET ADMIN = 1
+		    
+	</delete>
+	
+	<delete id="noAdmin" parameterType="com.spring.board.form.AdminForm">
+	
+		UPDATE ADMIN
+		   SET ADMIN = 0
+		    
+	</delete>
+	
+</mapper>
+
+
